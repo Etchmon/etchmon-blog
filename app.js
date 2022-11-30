@@ -11,8 +11,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcryptjs');
 const session = require("express-session");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./routes/indexRouter');
+var usersRouter = require('./routes/authRouter');
 
 var app = express();
 

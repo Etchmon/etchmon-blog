@@ -3,10 +3,10 @@ extends layout
 block content
   .nav
     h1 Etchmon - Blog 
-  //- .content 
-  //-   if (posts)
-  //-     each post in posts 
-  //-       .post
-  //-         h1 #{post.title}
+  .content 
+    if (posts)
+      each post in posts 
+        .post
+          h1 #{post.title}
 
 
