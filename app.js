@@ -69,6 +69,7 @@ app.use(function (req, res, next) {
   next();
 });
 
+// Initialize routers, must come after app.use(session)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
