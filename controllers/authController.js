@@ -1,7 +1,3 @@
-var User = require('../models/user');
-var async = require('async');
-const { body, validationResult } = require("express-validator");
-const bcrypt = require('bcryptjs');
 const passport = require("passport");
 
 // login_get, login_post, logout_get
