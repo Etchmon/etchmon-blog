@@ -1,0 +1,12 @@
+extends layout 
+
+block content
+  .nav
+    h1 Etchmon - Blog
+  .container 
+    form(action="/create-post" method="POST")
+      input(type="text" placeholder="Title" name="title" required="true")
+      input(type="textarea" placeholder="..." required="true" name="content")
+      button(type="submit") Submit 
+    if (errors)
+      p #{errors}
