@@ -9,4 +9,6 @@ router.get('/create-post', index_controller.create_post_get);
 
 router.post('/create-post', index_controller.create_post);
 
+router.get('/catalog', index_controller.catalog_get);
+
 module.exports = router;

@@ -1,0 +1,13 @@
+extends layout 
+
+block content
+  .nav 
+    h1 Etchmon - Blog 
+  .container 
+    if (posts)
+      each post in posts 
+        .post 
+          h1 #{post.title}
+          p #{post.date}
+          button x 
+          button o

@@ -26,7 +26,7 @@ exports.create_post = [
     body("title").trim().isLength({ min: 1 }).withMessage("Title must not be empty"),
     body("content").trim().isLength({ min: 1 }).withMessage("Text must not be empty"),
 
-    async (req, res, next) => {
+    (req, res, next) => {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -39,9 +39,25 @@ exports.create_post = [
             date: Date.now()
         });
 
-        await post.save((err) => {
-            if (err) return next(err);
+        post.save((err) => {
+            if (err)
+                return next(err);
             res.redirect("/");
         });
     }
 ];
+
+exports.catalog_get = async (req, res, next) => {
+    if (!res.locals.currentUser) {
+        // Users not logged in cannot access "create a message page"
+        return res.redirect("/");
+    };
+
+    try {
+        // Populate posts to be displayed on catalog page
+        const posts = await Post.find();
+        return res.render('catalog', { user: req.user, posts: posts });
+    } catch (err) {
+        return next(err);
+    }
+}
