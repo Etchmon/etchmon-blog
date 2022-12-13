@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
-var index_controller = require('../controllers/indexController');
+var post_controller = require('../controllers/postController');
 
 /* GET home page. */
-router.get('/', index_controller.index_get);
+router.get('/', post_controller.index_get);
 
-router.get('/create-post', index_controller.create_post_get);
+router.get('/create-post', post_controller.create_post_get);
 
-router.post('/create-post', index_controller.create_post);
+router.post('/create-post', post_controller.create_post);
 
-router.get('/catalog', index_controller.catalog_get);
+router.get('/catalog', post_controller.catalog_get);
 
 module.exports = router;

@@ -2,14 +2,18 @@ var Post = require('../models/post');
 var async = require('async');
 const { body, validationResult } = require("express-validator");
 
+// Exports create_post, get_posts, get_post, update_post, and delete_post
+
 // index_get
 exports.index_get = async (req, res, next) => {
 
     try {
         // Populate posts to be displayed on homepage.
         const posts = await Post.find();
-        res.json(posts);
-        // return res.render('index', { user: req.user, posts: posts })
+        if (!posts) {
+            return res.status(404).json({ err: "posts not found" })
+        }
+        res.status(200).json({ posts });
     } catch (err) {
         return next(err);
     }
