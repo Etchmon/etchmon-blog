@@ -5,7 +5,7 @@ const { body, validationResult } = require("express-validator");
 // Exports create_post, get_posts, get_post, update_post, and delete_post
 
 // index_get
-exports.index_get = async (req, res, next) => {
+exports.get_posts = async (req, res, next) => {
 
     try {
         // Populate posts to be displayed on homepage.

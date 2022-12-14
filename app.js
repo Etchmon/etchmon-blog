@@ -21,7 +21,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // Import routes
 var indexRouter = require('./routes/indexRouter');
-var usersRouter = require('./routes/authRouter');
+var apiRouter = require('./routes/api');
 
 var app = express();
 
@@ -71,7 +71,7 @@ app.use(function (req, res, next) {
 
 // Initialize routers, must come after app.use(session)
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

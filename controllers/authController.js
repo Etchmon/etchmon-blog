@@ -10,5 +10,5 @@ exports.login_get = (req, res) => {
 
 exports.login_post = passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/users/login"
+    failureRedirect: "/api/login"
 });
