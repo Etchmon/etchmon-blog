@@ -13,6 +13,9 @@ router.get('/', function (req, res, next) {
 // GET all posts
 router.get("/posts", post_controller.get_posts);
 
+// GET a single post
+router.get("/posts/:id", post_controller.get_post);
+
 /// ----- LOGIN/LOGOUT ----- ///
 router.get('/login', auth_controller.login_get);
 router.post('/login', auth_controller.login_post);

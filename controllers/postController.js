@@ -19,13 +19,25 @@ exports.get_posts = async (req, res, next) => {
     }
 };
 
+exports.get_post = async function (req, res, next) {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) {
+            return res.status(404).json({ err: `post with id ${req.params.id} not found` })
+        };
+        res.status(200).json({ post })
+    } catch (err) {
+        next(err);
+    }
+};
+
 exports.create_post_get = (req, res, next) => {
     if (!res.locals.currentUser) {
         // Users not logged in cannot access "create a message page"
         return res.redirect("/users/login");
     }
     res.render('create-post', { user: req.user });
-}
+};
 
 exports.create_post = [
     body("title").trim().isLength({ min: 1 }).withMessage("Title must not be empty"),
@@ -51,18 +63,3 @@ exports.create_post = [
         });
     }
 ];
-
-exports.catalog_get = async (req, res, next) => {
-    if (!res.locals.currentUser) {
-        // Users not logged in cannot access "create a message page"
-        return res.redirect("/");
-    };
-
-    try {
-        // Populate posts to be displayed on catalog page
-        const posts = await Post.find();
-        return res.render('catalog', { user: req.user, posts: posts });
-    } catch (err) {
-        return next(err);
-    }
-}
