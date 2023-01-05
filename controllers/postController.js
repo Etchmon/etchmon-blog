@@ -67,26 +67,42 @@ exports.create_post_get = (req, res, next) => {
 };
 
 exports.create_post = [
-    body("title").trim().isLength({ min: 1 }).withMessage("Title must not be empty"),
-    body("content").trim().isLength({ min: 1 }).withMessage("Text must not be empty"),
+    body("title").trim().escape(),
+    body("text").trim().escape(),
 
-    (req, res, next) => {
+    function (req, res, next) {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            res.render("create-post", { errors: errors.array() });
+            res.json({
+                data: req.body,
+                errors: errors.array(),
+            })
         };
 
         const post = new Post({
             title: req.body.title,
-            text: req.body.content,
+            text: req.body.text,
             date: Date.now()
         });
 
         post.save((err) => {
-            if (err)
+            if (err) {
                 return next(err);
-            res.redirect("/");
+            };
+            res.status(200).json({ msg: "post sent" })
         });
     }
 ];
+
+exports.delete_post = async function (req, res, next) {
+    try {
+        const post = await Post.findByIdAndDelete(req.params.id);
+        if (!post) {
+            return res.status(404).json({ err: `posts with id ${req.params.id} not found` });
+        }
+        res.status(200).json({ msg: `post with id ${req.params.id} successfully` });
+    } catch (err) {
+        next(err);
+    }
+};
