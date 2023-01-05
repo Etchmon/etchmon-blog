@@ -101,8 +101,23 @@ exports.delete_post = async function (req, res, next) {
         if (!post) {
             return res.status(404).json({ err: `posts with id ${req.params.id} not found` });
         }
-        res.status(200).json({ msg: `post with id ${req.params.id} successfully` });
+        res.status(200).json({ msg: `post with id ${req.params.id} deleted successfully` });
     } catch (err) {
         next(err);
     }
 };
+
+exports.update_post = async function (req, res, next) {
+    try {
+        let post = await Post.findById(req.params.id);
+        post.title = req.body.title;
+        post.text = req.body.text;
+        post = await post.save();
+        if (!post) {
+            return res.status(404).json({ msg: `update failed` });
+        }
+        res.status(200).json({ msg: `update successful` })
+    } catch (err) {
+        next(err);
+    }
+}
