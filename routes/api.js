@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var auth_controller = require('../controllers/authController');
 const post_controller = require('../controllers/postController');
+const comment_controller = require('../controllers/commentController');
 
 // ROUTES
 
@@ -16,7 +17,7 @@ router.get("/posts", post_controller.get_posts);
 // GET a single post
 router.get("/posts/:id", post_controller.get_post);
 
-// CREATE a post
+// POST a post
 router.post("/posts", post_controller.create_post);
 
 // PUT update post 
@@ -24,6 +25,9 @@ router.put("/posts/:id", post_controller.update_post);
 
 // DELETE post
 router.delete("/posts/:id", post_controller.delete_post);
+
+// POST a comment
+router.post("/posts/:postid/comments", comment_controller.create_comment);
 
 /// ----- LOGIN/LOGOUT ----- ///
 router.get('/login', auth_controller.login_get);
