@@ -28,4 +28,51 @@ exports.create_comment = [
             res.status(200).json({ msg: `comment ${comment._id} sent` });
         });
     },
-]
+];
+
+exports.get_comment = async function (req, res, next) {
+    try {
+        // Get comment from data-base
+        const comment = await Comment.findById(req.params.id);
+        // If search comes back empty return 404
+        if (!comment) {
+            return res.status(404).json({ err: 'comment not found' })
+        };
+        // Comment found, respond with json data
+        res.status(200).json({ comment })
+    } catch (err) {
+        next(err);
+    }
+};
+
+exports.get_comments = async function (req, res, next) {
+    try {
+
+    } catch (err) {
+
+    }
+};
+
+exports.update_comment = async function (req, res, next) {
+    try {
+
+    } catch (err) {
+
+    }
+};
+
+exports.delete_comment = async function (req, res, next) {
+    try {
+
+    } catch (err) {
+
+    }
+};
+
+exports.delete_all_comments = async function (req, res, next) {
+    try {
+
+    } catch (err) {
+
+    }
+};
