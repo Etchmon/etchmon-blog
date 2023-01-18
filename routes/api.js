@@ -8,7 +8,7 @@ const comment_controller = require('../controllers/commentController');
 
 /* index route*/
 router.get('/', function (req, res, next) {
-    res.redirect('etchmon-blog.vercel.app/api/posts');
+    res.redirect('/api/posts');
 });
 
 // GET all posts
