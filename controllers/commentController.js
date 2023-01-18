@@ -1,27 +1,29 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment');
-const async = require('async');
 const { body, validationResult } = require('express-validator');
-const { findByIdAndDelete } = require('../models/post');
 
 exports.create_comment = [
+
     body("text").trim().escape(),
 
     async function (req, res, next) {
         const errors = validationResult(req);
+
         if (!errors.isEmpty()) {
             res.json({
                 data: req.body,
                 errors: errors.array(),
             });
-            return
         };
+
+        console.log('here');
         const { text } = req.body;
         const postId = req.params.postid;
         const comment = new Comment(({ text, postId }));
         let post = await Post.findById(postId);
         post.comments = [...post.comments, comment];
         console.log(post.comments);
+
         comment.save((err) => {
             if (err) {
                 return next(err);
@@ -50,7 +52,7 @@ exports.get_comments = async function (req, res, next) {
     try {
         // Get all comments from database
         const allComments = await Comment.find();
-        const comments = comments.filter((comment) => comment.postId).sort((a, b) => b.date - a.date);
+        const comments = allComments.filter((comment) => comment.postId).sort((a, b) => b.date - a.date);
         console.log(comments);
         // If search comes back empty return 404
         if (!comments) {

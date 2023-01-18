@@ -29,6 +29,18 @@ router.delete("/posts/:id", post_controller.delete_post);
 // POST a comment
 router.post("/posts/:postid/comments", comment_controller.create_comment);
 
+// GET all comments
+router.get("/posts/:postid/comments", comment_controller.get_comments);
+
+// GET a single comment
+router.get("/posts/:postid/comments/:commentid", comment_controller.get_comment);
+
+// DELETE a comment
+
+// DELETE all comments
+
+// PUT update a comment
+
 /// ----- LOGIN/LOGOUT ----- ///
 router.get('/login', auth_controller.login_get);
 router.post('/login', auth_controller.login_post);
