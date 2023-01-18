@@ -8,7 +8,7 @@ const comment_controller = require('../controllers/commentController');
 
 /* index route*/
 router.get('/', function (req, res, next) {
-    res.redirect('/api/posts');
+    res.redirect('etchmon-blog.vercel.app/api/posts');
 });
 
 // GET all posts
@@ -36,10 +36,13 @@ router.get("/posts/:postid/comments", comment_controller.get_comments);
 router.get("/posts/:postid/comments/:commentid", comment_controller.get_comment);
 
 // DELETE a comment
+router.delete("/posts/:postid/comments/:commentid", comment_controller.delete_comment);
 
 // DELETE all comments
+router.delete("/posts/:postid/comments", comment_controller.delete_comment);
 
 // PUT update a comment
+router.put("/posts/:postid/comments/:commentid", comment_controller.update_comment);
 
 /// ----- LOGIN/LOGOUT ----- ///
 router.get('/login', auth_controller.login_get);

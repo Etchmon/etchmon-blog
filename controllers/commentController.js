@@ -36,7 +36,7 @@ exports.create_comment = [
 exports.get_comment = async function (req, res, next) {
     try {
         // Get comment from database
-        const comment = await Comment.findById(req.params.id);
+        const comment = await Comment.findById(req.params.commentid);
         // If search comes back empty return 404
         if (!comment) {
             return res.status(404).json({ err: 'comment not found' })
@@ -73,6 +73,7 @@ exports.update_comment = async function (req, res, next) {
         if (!comment) {
             return res.status(404).json({ err: 'Comment not found' });
         };
+        res.status(200).json({ msg: "Comment updated successfully" });
     } catch (err) {
         next(err);
     }
