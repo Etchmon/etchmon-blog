@@ -32,7 +32,7 @@ exports.create_comment = [
 
 exports.get_comment = async function (req, res, next) {
     try {
-        // Get comment from data-base
+        // Get comment from database
         const comment = await Comment.findById(req.params.id);
         // If search comes back empty return 404
         if (!comment) {
@@ -47,9 +47,17 @@ exports.get_comment = async function (req, res, next) {
 
 exports.get_comments = async function (req, res, next) {
     try {
+        // Get all comments from database
+        const allComments = await Comment.find();
+        const comments = comments.filter((comment) => comment.postId).sort((a, b) => b.date - a.date);
+        console.log(comments);
+        if (!comments) {
+            return res.status(404).json({ err: 'Comment not found' });
+        };
+        res.status(200).json({ comments });
 
     } catch (err) {
-
+        return next(err);
     }
 };
 
