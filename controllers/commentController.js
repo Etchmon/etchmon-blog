@@ -2,6 +2,7 @@ const Post = require('../models/post');
 const Comment = require('../models/comment');
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const { findByIdAndDelete } = require('../models/post');
 
 exports.create_comment = [
     body("text").trim().escape(),
@@ -51,36 +52,58 @@ exports.get_comments = async function (req, res, next) {
         const allComments = await Comment.find();
         const comments = comments.filter((comment) => comment.postId).sort((a, b) => b.date - a.date);
         console.log(comments);
+        // If search comes back empty return 404
         if (!comments) {
             return res.status(404).json({ err: 'Comment not found' });
         };
+        // Comment found, respond with json data}
         res.status(200).json({ comments });
 
     } catch (err) {
-        return next(err);
+        next(err);
     }
 };
 
 exports.update_comment = async function (req, res, next) {
     try {
-
+        const { text } = req.body;
+        const comment = await Comment.findByIdAndUpdate(req.params.commentid, { text });
+        if (!comment) {
+            return res.status(404).json({ err: 'Comment not found' });
+        };
     } catch (err) {
-
+        next(err);
     }
 };
 
 exports.delete_comment = async function (req, res, next) {
     try {
-
+        let commentId = req.params.commentid;
+        // Delete comment from post
+        let post = await Post.findById(req.params.postid);
+        let postComment = await Comment.findById(commentId);
+        let newComments = await post.comments.filter((comment) => comment.toString() !== postComment._id.toString());
+        post.comments = [...newComments];
+        post = await post.save();
+        // Delete comment from comments
+        const comment = await findByIdAndDelete(commentId);
+        if (!comment) {
+            return res.status(404).json({ err: 'Comment not found' });
+        };
+        res.status(200).json('Comment deleted successfully');
     } catch (err) {
-
+        next(err);
     }
 };
 
 exports.delete_all_comments = async function (req, res, next) {
     try {
-
+        const comment = await Comment.deleteMany({ postId: req.params.postid });
+        if (!comment) {
+            return res.status(404).json({ err: 'Comment not found' });
+        }
+        res.status(200).json('Comments deleted succesfully');
     } catch (err) {
-
+        next(err);
     }
 };
