@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../index');
 var debug = require('debug')('etchmon-blog:server');
 var http = require('http');
 

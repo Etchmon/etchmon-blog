@@ -10,7 +10,7 @@ require('dotenv').config();
 const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcryptjs');
-const session = require("express-session");
+const session = require("cookie-session");
 
 // Set up mongoose connection
 var mongoose = require('mongoose');
