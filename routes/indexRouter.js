@@ -9,4 +9,6 @@ router.get('/', function (req, res, next) {
     res.redirect('/api/posts');
 });
 
+router.get('/create', post_controller.create_post_get);
+
 module.exports = router;

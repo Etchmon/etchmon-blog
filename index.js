@@ -10,7 +10,7 @@ require('dotenv').config();
 const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcryptjs');
-const session = require("cookie-session");
+const session = require("express-session");
 
 // Set up mongoose connection
 var mongoose = require('mongoose');
@@ -25,7 +25,7 @@ var apiRouter = require('./routes/api');
 
 var app = express();
 
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -38,13 +38,14 @@ app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Secure log-in using passport and bcrypt
-passport.use(new LocalStrategy((username, password, done) => {
+passport.use("local", new LocalStrategy((username, password, done) => {
   User.findOne({ username: username }, (err, user) => {
     if (err) return done(err);
     if (!user) return done(null, false, { message: "Incorrect username" });
     console.log(user);
     console.log(password);
     bcrypt.compare(password, user.password, (err, res) => {
+      console.log(res);
       if (err) return done(err);
       // Passwords match, log user in!
       if (res) return done(null, user);
