@@ -2,7 +2,7 @@ extends layout
 
 block content
   .login
-    form(action='/users/login' method='POST')
+    form(action='/api/login' method='POST')
       input(type='text' placeholder='Username' name='username' required='true' value='')
       input(type='password' placeholder='password' name='password' required='true')
       button(type='submit') Submit
