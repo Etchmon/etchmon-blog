@@ -13,7 +13,8 @@ exports.get_posts = async (req, res, next) => {
         if (!posts) {
             return res.status(404).json({ err: "posts not found" })
         }
-        res.status(200).json({ posts });
+        // res.status(200).json({ posts });
+        res.render('catalog', { posts: posts })
     } catch (err) {
         return next(err);
     }
@@ -59,9 +60,10 @@ exports.delete_post = async function (req, res, next) {
 };
 
 exports.create_post_get = (req, res, next) => {
+    console.log(res.locals.currentUser);
     if (!res.locals.currentUser) {
         // Users not logged in cannot access "create a message page"
-        return res.redirect("/users/login");
+        return res.redirect("/api/login");
     }
     res.render('create-post', { user: req.user });
 };

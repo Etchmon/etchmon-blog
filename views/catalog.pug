@@ -9,5 +9,6 @@ block content
         .post 
           h1 #{post.title}
           p #{post.date}
-          button x 
+          button.delete-post(id=post._id) x
           button o
+  script(src='/js/catalog.js')

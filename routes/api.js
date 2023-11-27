@@ -6,11 +6,6 @@ const comment_controller = require('../controllers/commentController');
 
 // ROUTES
 
-/* index route*/
-router.get('/', function (req, res, next) {
-    res.redirect('/api/posts');
-});
-
 // GET all posts
 router.get("/posts", post_controller.get_posts);
 

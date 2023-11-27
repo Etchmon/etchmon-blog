@@ -42,8 +42,6 @@ passport.use("local", new LocalStrategy((username, password, done) => {
   User.findOne({ username: username }, (err, user) => {
     if (err) return done(err);
     if (!user) return done(null, false, { message: "Incorrect username" });
-    console.log(user);
-    console.log(password);
     bcrypt.compare(password, user.password, (err, res) => {
       console.log(res);
       if (err) return done(err);

@@ -6,9 +6,11 @@ var post_controller = require('../controllers/postController');
 
 /* index route*/
 router.get('/', function (req, res, next) {
-    res.redirect('/api/posts');
+    res.redirect('/api/login');
 });
 
 router.get('/create', post_controller.create_post_get);
+
+router.get('/catalog', post_controller.get_posts);
 
 module.exports = router;
