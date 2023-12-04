@@ -42,6 +42,6 @@ router.put("/posts/:postid/comments/:commentid", comment_controller.update_comme
 /// ----- LOGIN/LOGOUT ----- ///
 router.get('/login', auth_controller.login_get);
 router.post('/login', auth_controller.login_post);
-// router.get('/logout', auth_controller.logout_get);
+router.post('/logout', auth_controller.logout_post);
 
 module.exports = router;

@@ -2,7 +2,9 @@ extends layout
 
 block content
   .nav 
-    h1 Etchmon - Blog 
+    h1 Etchmon - Blog
+    form(method="POST" action="/api/logout")
+      button(type="submit") Logout
   .container 
     if (posts)
       each post in posts 
@@ -10,5 +12,5 @@ block content
           h1 #{post.title}
           p #{post.date}
           button.delete-post(id=post._id) x
-          button o
+          button edit
   script(src='/js/catalog.js')
