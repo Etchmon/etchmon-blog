@@ -12,5 +12,6 @@ block content
           h1 #{post.title}
           p #{post.date}
           button.delete-post(id=post._id) x
-          button edit
+          form(method="GET" action=`/api/posts/${post._id}/edit`)
+            button(type="submit") edit
   script(src='/js/catalog.js')

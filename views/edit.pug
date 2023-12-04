@@ -1,0 +1,14 @@
+extends layout 
+
+block content
+    .nav
+        h1 Etchmon - Blog
+    .container 
+        if (post)
+            form.editForm(id=`${post._id}`)
+                input(type="text" placeholder="Title" name="title" required="true" value=post.title)
+                input(type="textarea" placeholder="..." required="true" name="text" value=post.text)
+                button(type="submit") Submit 
+        if (errors)
+            p #{errors}
+    script(src='/js/catalog.js')

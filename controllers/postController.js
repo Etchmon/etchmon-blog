@@ -1,6 +1,7 @@
 var Post = require('../models/post');
 var async = require('async');
 const { body, validationResult } = require("express-validator");
+const { get } = require('mongoose');
 
 // Exports create_post, get_posts, get_post, update_post, and delete_post
 
@@ -22,7 +23,10 @@ exports.get_posts = async (req, res, next) => {
 
 // Catalog Get
 exports.get_catalog = async (req, res, next) => {
-    if (!res.locals.currentUser) return res.redirect("/api/login")
+    if (!res.locals.currentUser) {
+        // Users not logged in cannot access catalog page
+        return res.redirect("/api/login");
+    }
     try {
         // Populate posts to be displayed on homepage.
         const posts = await Post.find();
@@ -48,32 +52,44 @@ exports.get_post = async function (req, res, next) {
     }
 };
 
-exports.update_post = async function (req, res, next) {
-    try {
-        let post = await Post.findById(req.params.id);
-        post.title = req.body.title;
-        post.text = req.body.text;
-        post = await post.save();
-        if (!post) {
-            return res.status(404).json({ msg: "update failed" });
-        };
-        res.status(200).json({ msg: "updated succesfully" })
-    } catch (err) {
-        next(err);
-    }
-};
-
-exports.delete_post = async function (req, res, next) {
+exports.update_get = async function (req, res, next) {
     try {
         const post = await Post.findById(req.params.id);
         if (!post) {
-            return res.status(404).json({ msg: "Post not found" });
+            return res.status(404).json({ err: `post with id ${req.params.id} not found` })
         };
-        res.status(200).json({ msg: 'Post deleted successfully' });
+        res.render('edit', { post: post })
     } catch (err) {
         next(err);
-    };
-};
+    }
+}
+
+// exports.update_post = async function (req, res, next) {
+//     try {
+//         let post = await Post.findById(req.params.id);
+//         post.title = req.body.title;
+//         post.text = req.body.text;
+//         post = await post.save();
+//         if (!post) {
+//             return res.status(404).json({ msg: "update failed" });
+//         };
+//         res.status(200).json({ msg: "updated succesfully" })
+//     } catch (err) {
+//         next(err);
+//     }
+// };
+
+// exports.delete_post = async function (req, res, next) {
+//     try {
+//         const post = await Post.findById(req.params.id);
+//         if (!post) {
+//             return res.status(404).json({ msg: "Post not found" });
+//         };
+//         res.status(200).json({ msg: 'Post deleted successfully' });
+//     } catch (err) {
+//         next(err);
+//     };
+// };
 
 exports.create_post_get = (req, res, next) => {
     if (!res.locals.currentUser) {
@@ -107,7 +123,7 @@ exports.create_post = [
             if (err) {
                 return next(err);
             };
-            res.status(200).json({ msg: "post sent" })
+            res.redirect("/catalog");
         });
     }
 ];
@@ -127,6 +143,7 @@ exports.delete_post = async function (req, res, next) {
 exports.update_post = async function (req, res, next) {
     try {
         let post = await Post.findById(req.params.id);
+        console.log(post, req.body);
         post.title = req.body.title;
         post.text = req.body.text;
         post = await post.save();

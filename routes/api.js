@@ -12,6 +12,9 @@ router.get("/posts", post_controller.get_posts);
 // GET a single post
 router.get("/posts/:id", post_controller.get_post);
 
+// GET edit post page
+router.get("/posts/:id/edit", post_controller.update_get);
+
 // POST a post
 router.post("/posts", post_controller.create_post);
 
