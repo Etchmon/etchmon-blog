@@ -11,6 +11,7 @@ exports.get_posts = async (req, res, next) => {
     try {
         // Populate posts to be displayed on homepage.
         const posts = await Post.find();
+        posts.reverse();
         if (!posts) {
             return res.status(404).json({ err: "posts not found" })
         }
@@ -53,6 +54,7 @@ exports.get_post = async function (req, res, next) {
 };
 
 exports.update_get = async function (req, res, next) {
+    
     try {
         const post = await Post.findById(req.params.id);
         if (!post) {
@@ -63,33 +65,6 @@ exports.update_get = async function (req, res, next) {
         next(err);
     }
 }
-
-// exports.update_post = async function (req, res, next) {
-//     try {
-//         let post = await Post.findById(req.params.id);
-//         post.title = req.body.title;
-//         post.text = req.body.text;
-//         post = await post.save();
-//         if (!post) {
-//             return res.status(404).json({ msg: "update failed" });
-//         };
-//         res.status(200).json({ msg: "updated succesfully" })
-//     } catch (err) {
-//         next(err);
-//     }
-// };
-
-// exports.delete_post = async function (req, res, next) {
-//     try {
-//         const post = await Post.findById(req.params.id);
-//         if (!post) {
-//             return res.status(404).json({ msg: "Post not found" });
-//         };
-//         res.status(200).json({ msg: 'Post deleted successfully' });
-//     } catch (err) {
-//         next(err);
-//     };
-// };
 
 exports.create_post_get = (req, res, next) => {
     if (!res.locals.currentUser) {

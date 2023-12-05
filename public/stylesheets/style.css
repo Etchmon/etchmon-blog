@@ -1,8 +1,35 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #222;
+  color: aliceblue;
+  height: 100vh; /* Add this to make the body fill the full viewport height */
+  overflow: hidden; /* Add this to prevent the body from scrolling */
 }
 
-a {
-  color: #00B7FF;
+.content {
+  margin-top: 10rem;
+  text-align: center;
+}
+
+#grid-container {
+  display: grid;
+  grid-template-columns: 20rem 1fr;
+  grid-template-areas: 
+    "sidebar main";
+  height: 100%; /* Add this to make the grid container fill the full body height */
+}
+
+#sidebar {
+  grid-area: sidebar;
+  height: 100%; /* Add this to make the sidebar fill the full grid container height */
+  overflow: hidden; /* Add this to prevent the sidebar from scrolling */
+  /* Add any additional styles for your sidebar here */
+}
+
+#main-content {
+  grid-area: main;
+  height: 100%; /* Add this to make the main content fill the full grid container height */
+  overflow: auto; /* Add this to make the main content scrollable if it overflows its container */
+  /* Add any additional styles for your main content here */
 }

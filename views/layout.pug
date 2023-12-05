@@ -4,5 +4,16 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    div#grid-container
+      div#sidebar
+        .nav
+          h1 Etchmon - Blog
+          if currentUser 
+            p Welcome. #{currentUser.username}!
+            form(method="POST" action="/api/logout")
+              button(type="submit") Logout
+          else 
+            button(href="/") Home
+      div#main-content
+        block content
 
