@@ -7,8 +7,7 @@ var post_controller = require('../controllers/postController');
 /* index route*/
 router.get('/', post_controller.get_posts);
 
+// GET create post page
 router.get('/create', post_controller.create_post_get);
-
-router.get('/catalog', post_controller.get_catalog);
 
 module.exports = router;

@@ -8,7 +8,7 @@ exports.login_get = (req, res) => {
 }
 
 exports.login_post = passport.authenticate("local", {
-    successRedirect: "/catalog",
+    successRedirect: "/api/catalog",
     failureRedirect: "/api/login"
 });
 

@@ -6,6 +6,9 @@ const comment_controller = require('../controllers/commentController');
 
 // ROUTES
 
+// GET catalog page
+router.get('/catalog', post_controller.get_catalog);
+
 // GET all posts
 router.get("/posts", post_controller.get_posts);
 

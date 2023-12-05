@@ -1,12 +1,17 @@
 extends layout
 
 block content
-  .content 
-    if (posts)
-      each post in posts 
-        .post
-          h1 #{post.title}
-          p #{post.date}
-          p #{post.text}
+  .content
+    .header
+      h2 Etchmon
+      p Welcome to the blog
+    .posts
+      if (posts)
+        each post in posts 
+          .post
+            h1 #{post.title}
+            p #{post.text}
+            p | #{post.date} 
+            
 
 

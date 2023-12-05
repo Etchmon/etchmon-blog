@@ -5,15 +5,15 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     div#grid-container
-      div#sidebar
+      div#navbar
         .nav
-          h1 Etchmon - Blog
+          a.logo(href="/") JE
+          h1 BLOG
           if currentUser 
             p Welcome. #{currentUser.username}!
             form(method="POST" action="/api/logout")
               button(type="submit") Logout
-          else 
-            button(href="/") Home
+            a(href="/create") New Post
       div#main-content
         block content
 

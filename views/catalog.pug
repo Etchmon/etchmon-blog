@@ -1,12 +1,7 @@
 extends layout 
 
 block content
-  .nav 
-    if currentUser 
-      p Welcome. #{currentUser.username}!
-      form(method="POST" action="/api/logout")
-        button(type="submit") Logout
-  .container 
+  .posts
     if (posts)
       each post in posts 
         .post 

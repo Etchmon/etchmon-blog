@@ -1,35 +1,112 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #222;
-  color: aliceblue;
+  background-color: aliceblue;
   height: 100vh; /* Add this to make the body fill the full viewport height */
   overflow: hidden; /* Add this to prevent the body from scrolling */
 }
 
+a {
+  text-decoration: none;
+  color: aliceblue;
+  font-size: 1.2rem;
+  margin-left: 1.8rem;
+}
+
 .content {
-  margin-top: 10rem;
+  margin-top: 1rem;
   text-align: center;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-areas: 
+    "header posts";
+}
+
+.header {
+  grid-area: header;
+  grid-row: span 5;
+  padding: 1rem;
+  border-radius: .5rem;
+  margin: 1.5rem 0 0 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.posts {
+  grid-area: posts;
+  grid-column: 2 / 3;
+  border-radius: .5rem;
+  margin: 1.5rem;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  height: 12rem;
+  width: 60%;
+  margin: 1rem;
+  border-bottom: 1px solid #222;
+}
+
+.post * {
+  margin: 0 1rem;
+  justify-content: space-evenly;
 }
 
 #grid-container {
   display: grid;
-  grid-template-columns: 20rem 1fr;
+  grid-template-rows: 22rem 1fr;
   grid-template-areas: 
-    "sidebar main";
+    "navbar" 
+    "main";
   height: 100%; /* Add this to make the grid container fill the full body height */
 }
 
-#sidebar {
-  grid-area: sidebar;
-  height: 100%; /* Add this to make the sidebar fill the full grid container height */
-  overflow: hidden; /* Add this to prevent the sidebar from scrolling */
-  /* Add any additional styles for your sidebar here */
+#navbar {
+  grid-area: navbar;
+  color: aliceblue;
+  position: relative;
+  height: 100%; /* Add this to make the navbar fill the full grid container height */
+  overflow: hidden; /* Add this to prevent the navbar from scrolling */
+  display: flex; /* Add this */
+  justify-content: center; /* Add this */
+  align-items: center; /* Add this */
+  text-align: center;
+  background-color: #222;
+  margin: 1.5rem;
+  border-radius: .5rem;
+  /* Add any additional styles for your navbar here */
+}
+
+#navbar .logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 1rem;
+  font-size: 3rem;
+}
+
+#navbar h1 {
+  color: aliceblue; 
 }
 
 #main-content {
   grid-area: main;
+  position: relative;
   height: 100%; /* Add this to make the main content fill the full grid container height */
   overflow: auto; /* Add this to make the main content scrollable if it overflows its container */
-  /* Add any additional styles for your main content here */
+  background-color: #ffffff;
+  border-radius: .5rem;
+  margin: 3rem 1.5rem 0 1.5rem;
+}
+
+#main-content::-webkit-scrollbar {
+  display: none;
 }

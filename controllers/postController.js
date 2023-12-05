@@ -1,7 +1,7 @@
 var Post = require('../models/post');
 var async = require('async');
 const { body, validationResult } = require("express-validator");
-const { get } = require('mongoose');
+const { DateTime } = require("luxon");
 
 // Exports create_post, get_posts, get_post, update_post, and delete_post
 
@@ -10,8 +10,7 @@ exports.get_posts = async (req, res, next) => {
 
     try {
         // Populate posts to be displayed on homepage.
-        const posts = await Post.find();
-        posts.reverse();
+        const posts = await Post.find().sort({_id: -1});
         if (!posts) {
             return res.status(404).json({ err: "posts not found" })
         }
@@ -31,6 +30,7 @@ exports.get_catalog = async (req, res, next) => {
     try {
         // Populate posts to be displayed on homepage.
         const posts = await Post.find();
+        posts.reverse();
         if (!posts) {
             return res.status(404).json({ err: "posts not found" })
         }
@@ -87,19 +87,16 @@ exports.create_post = [
                 errors: errors.array(),
             })
         };
-
+        console.log(DateTime.now().toLocaleString(DateTime.DATE_FULL))
         const post = new Post({
             title: req.body.title,
             text: req.body.text,
-            date: Date.now()
+            date: DateTime.now().toLocaleString(DateTime.DATE_FULL),
         });
 
-        post.save((err) => {
-            if (err) {
-                return next(err);
-            };
-            res.redirect("/catalog");
-        });
+        post.save()
+            .then(() => res.redirect('/api/catalog'))
+            .catch(err => console.error(err));
     }
 ];
 
