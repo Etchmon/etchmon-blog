@@ -31,7 +31,7 @@
   "description": "Official blog for the ramblings of Etchmon.",
   "main": "app.js",
   "engines": {
-    "node": "20.x"
+    "node": "18.x"
   },
   "repository": {
     "type": "git",
