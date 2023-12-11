@@ -14,6 +14,7 @@ const session = require("express-session");
 
 // Set up mongoose connection
 var mongoose = require('mongoose');
+// Env variable for connection string
 var mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
