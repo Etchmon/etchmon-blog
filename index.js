@@ -6,6 +6,7 @@ var logger = require('morgan');
 var compression = require('compression');
 var helmet = require('helmet');
 var User = require('./models/user');
+const serverless = require('serverless-http');
 const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcryptjs');
@@ -96,4 +97,4 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = serverless(app);
