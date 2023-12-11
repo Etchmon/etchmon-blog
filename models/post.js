@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const { DateTime } = require("luxon");
 
+mongoose.set('strictQuery', false);
+
 const PostSchema = new Schema({
     title: { type: String, required: true },
     text: { type: String, required: true },
