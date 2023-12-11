@@ -6,11 +6,13 @@ var logger = require('morgan');
 var compression = require('compression');
 var helmet = require('helmet');
 var User = require('./models/user');
-require('dotenv').config();
 const passport = require('passport');
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcryptjs');
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
+require('dotenv').config();
+
 
 // Set up mongoose connection
 var mongoose = require('mongoose');
@@ -57,7 +59,12 @@ passport.use("local", new LocalStrategy((username, password, done) => {
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(session({
+    secret: 'cats',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI })
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
