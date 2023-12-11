@@ -30,7 +30,7 @@
   "description": "Official blog for the ramblings of Etchmon.",
   "main": "app.js",
   "engines": {
-    "node": "14.x"
+    "node": "20.x"
   },
   "repository": {
     "type": "git",
