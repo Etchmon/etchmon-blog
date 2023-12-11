@@ -3,15 +3,16 @@ extends layout
 block content
   .content
     .header
-      h2 Etchmon
-      p Welcome to the blog
+      h2 Leave Your Mark
+      p James Etchells' Blog
     .posts
       if (posts)
         each post in posts 
           .post
-            h1 #{post.title}
-            p #{post.text}
-            p | #{post.date} 
+            h1.title #{post.title}
+            p.date | #{post.date} 
+            p.text #{post.text}
+            
             
 
 

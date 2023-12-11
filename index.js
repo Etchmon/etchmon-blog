@@ -15,7 +15,7 @@ const session = require("express-session");
 // Set up mongoose connection
 var mongoose = require('mongoose');
 var mongoDB = process.env.MONGODB_URI;
-mongoose.connect('mongodb+srv://Etchmon:ole-ball@cluster0.07p6bmm.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 

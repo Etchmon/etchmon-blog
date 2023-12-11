@@ -9,8 +9,11 @@ html
         .nav
           a.logo(href="/") JE
           h1 BLOG
-          if currentUser 
-            p Welcome. #{currentUser.username}!
+        .navlinks 
+          a(href="/") Home
+          a(href="/about") About
+          a(href="/contact") Contact
+          if currentUser
             form(method="POST" action="/api/logout")
               button(type="submit") Logout
             a(href="/create") New Post
